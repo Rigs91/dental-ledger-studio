@@ -4,20 +4,38 @@ Ledger-first dental billing and claims review that makes every balance, insuranc
 
 ![Dashboard hero](docs/screenshots/01-dashboard.png)
 
-## Why This Matters In 30 Seconds
+## What This Product Does
 
-- Explainable balances: account state is derived from ledger events instead of hidden balance mutation.
-- Date-of-service insurance logic: claims preserve the insurance context used at submission time.
-- Actionable review flow: flags, denials, and analytics point the user to the next decision.
+Dental Ledger Studio is a ledger-first dental billing and claims review product. It helps teams understand balances, preserve claim context, and work denials and flags without reconstructing history.
 
-## 60-Second Demo Path
+- Trace every balance to ledger events.
+- Preserve insurance context by date of service.
+- Turn denials, flags, and analytics into explicit follow-up work.
 
-1. Sign in and start on the dashboard.
-2. Open `Maria Chen 41` from the balance watch list.
-3. On the patient profile, show the balance snapshot, activity timeline, and open review flags.
-4. Open the denied claim timeline from the patient workflow.
-5. Show preserved submission context, the ledger-backed balance, and the review actions.
-6. Jump to analytics to show the priority queue and risk signals.
+## The Problem It Solves
+
+Dental billing gets hard to trust when balances move without explanation, insurance changes near the visit date, and denied claims force staff to reconstruct what happened after the fact.
+
+This product is built around three trust questions:
+
+- What changed?
+- Why did it change?
+- What should the team do next?
+
+## Why It Stands Out
+
+- Append-only ledger: balances are derived from financial events instead of stored balance fields.
+- Immutable claim history: submissions and decisions append context instead of overwriting earlier records.
+- Action-oriented review: flags and analytics are designed to drive follow-up work, not just report status.
+
+## Demo In 60 Seconds
+
+`Sign in -> Dashboard -> Maria Chen 41 -> denied claim timeline -> Analytics`
+
+1. Dashboard: show balances at risk, open flags, and insurance ambiguity.
+2. `Maria Chen 41`: show the balance snapshot, patient activity, and open review flags.
+3. Denied claim timeline: show the preserved insurance snapshot, submission history, and ledger-backed balance.
+4. Analytics: show the priority queue and root causes driving follow-up work.
 
 ## Workflow At A Glance
 
@@ -26,40 +44,19 @@ Ledger-first dental billing and claims review that makes every balance, insuranc
   <img src="docs/screenshots/03-claim-review.png" alt="Claim review" width="32%" />
   <img src="docs/screenshots/04-analytics.png" alt="Analytics" width="32%" />
 </p>
-
-## What The Product Does
-
-Dental Ledger Studio is a focused dental billing workflow demo built around deterministic business logic. It covers:
-
-- appointments and daily operations
-- intake and procedure review
-- patient balances, payments, and insurance timelines
-- claim decisions, resubmissions, and review flags
-- analytics tied to operational follow-up
-
-The product is intentionally positioned as a billing and claims-review system, not an AI showcase.
-
-## The Product Problem
-
-Dental billing is hard to trust when balances change without explanation, insurance changes near the date of service, and denied claims require teams to reconstruct what happened after the fact.
-
-This project centers the workflow on trust:
-
-- every dollar traces back to ledger events
-- every claim keeps its insurance snapshot
-- every flagged issue has a visible reason and next step
+<p align="center"><sub>Patient detail</sub> | <sub>Claim review</sub> | <sub>Analytics</sub></p>
 
 ## Core Workflows
 
-- Daily operations: move from schedule to check-in to intake without losing billing context.
-- Patient review: inspect visits, services, payments, insurance history, and flags in one place.
-- Claim review: record payer decisions, resubmissions, and patient payments without overwriting history.
-- Review inbox: group and resolve the highest-friction billing issues.
+- Daily operations: move from appointment to intake without losing billing context.
+- Patient account review: inspect visits, services, payments, insurance history, and flags in one place.
+- Claim handling: record payer decisions, resubmissions, and patient payments without rewriting history.
+- Review queue: focus the team on the highest-friction billing issues first.
 - Analytics: surface revenue risk, denial patterns, and operational bottlenecks.
 
 ## Architecture And Data Model
 
-This is a Next.js App Router app backed by Prisma and SQLite.
+Next.js App Router application backed by Prisma and SQLite.
 
 Key domain objects:
 
@@ -78,15 +75,12 @@ Important product decisions:
 
 ## Tech Stack
 
-- Next.js
-- TypeScript
-- Prisma
-- SQLite
-- Tailwind CSS
-- Zod
-- Vitest
-- Playwright
-- Windows-friendly launcher scripts
+- Next.js + TypeScript: full-stack product shell and typed workflow logic.
+- Prisma + SQLite: lightweight relational data layer for local setup and seeded demos.
+- Tailwind CSS: card-based operational UI optimized for scanability.
+- Zod: runtime validation at request and business-rule boundaries.
+- Vitest + Playwright: regression coverage for domain logic and demo-path smoke tests.
+- Windows launchers: one-click setup, validation, and local startup.
 
 ## Run Locally
 
@@ -116,15 +110,9 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Seeded Demo Data
 
-The repo ships with synthetic demo data only:
+Synthetic demo data includes patients, insurers, paid claims, denied claims, flags, credits, adjustments, and resubmission scenarios.
 
-- synthetic patients and insurers
-- paid, submitted, and denied claims
-- flags, credits, adjustments, and resubmission scenarios
-
-Recommended walkthrough:
-
-`Dashboard -> Maria Chen 41 -> denied claim timeline -> Analytics`
+Use the demo path above for the fastest walkthrough.
 
 ## Product Decisions And Tradeoffs
 
@@ -133,7 +121,7 @@ Recommended walkthrough:
 - SQLite keeps local setup simple and portable.
 - The seeded data is curated for demo clarity, not for exhaustive production realism.
 
-## More Context
+## Supporting Docs
 
 - Case study: [docs/case-study.md](docs/case-study.md)
 - 60-second demo script: [docs/demo-script.md](docs/demo-script.md)
