@@ -4,6 +4,8 @@ Ledger-first dental billing and claims review that makes every balance, insuranc
 
 ![Dashboard hero](docs/screenshots/01-dashboard.png)
 
+[Watch the 20-second product demo](https://github.com/Rigs91/dental-ledger-studio/releases/download/demo-video-2026-04-05/dental-ledger-studio-demo-20s.mp4)
+
 ## What This Product Does
 
 Dental Ledger Studio is a ledger-first dental billing and claims review product. It helps teams understand balances, preserve claim context, and work denials and flags without reconstructing history.
