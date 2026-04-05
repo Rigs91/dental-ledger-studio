@@ -1,0 +1,60 @@
+Category,CDT Code,Procedure Description,Est. Avg Fee (2025),Notes,Patient Description
+Diagnostic,D0120,Periodic Oral Evaluation,$65 - $85,Routine 6-month check-up exam for established patients.,Routine 6-month check-up
+Diagnostic,D0140,Limited Oral Evaluation,$85 - $130,"Emergency" exam; problem-focused (e.g., toothache).,Emergency exam for a specific problem like a toothache
+Diagnostic,D0150,Comprehensive Oral Evaluation,$100 - $150,New patient exam or major health change (3+ years absent).,First visit exam or detailed exam for a new patient
+Diagnostic,D0180,Comprehensive Periodontal Evaluation,$120 - $175,Detailed gum/bone exam for patients with gum disease risk.,Deep gum health check-up
+Diagnostic,D0210,Intraoral - Complete Series (FMX),$160 - $225,Full set of x-rays (usually 18-20 images) taken every 3-5 years.,Full set of mouth x-rays
+Diagnostic,D0220,Intraoral - Periapical (First Image),$35 - $50,Single x-ray showing the whole tooth root (often for infection).,Single x-ray of a tooth root
+Diagnostic,D0230,Intraoral - Periapical (Addt'l),$30 - $45,Each additional periapical x-ray taken at the same visit.,Extra single x-ray taken during the same visit
+Diagnostic,D0272,Bitewings - Two Images,$50 - $70,Cavity-check x-rays (common for children).,Two x-rays to check for cavities (usually for kids)
+Diagnostic,D0274,Bitewings - Four Images,$70 - $95,Cavity-check x-rays (standard for adults).,Four x-rays to check for cavities
+Diagnostic,D0330,Panoramic Radiographic Image,$140 - $200,Single large x-ray showing the entire jaw/skull.,One big x-ray that spins around the head
+Preventive,D1110,Prophylaxis - Adult,$110 - $150,"Standard ""healthy mouth"" cleaning for adults.",Regular adult teeth cleaning
+Preventive,D1120,Prophylaxis - Child,$80 - $110,Standard cleaning for children (usually under age 14).,Regular child teeth cleaning
+Preventive,D1206,Topical Fluoride Varnish,$45 - $65,High-concentration fluoride painted on teeth.,Fluoride painted on teeth to prevent cavities
+Preventive,D1208,Topical Application of Fluoride,$40 - $60,Gel or foam fluoride (trays).,Fluoride foam or gel treatment
+Preventive,D1351,Sealant - Per Tooth,$50 - $75,Plastic coating on molars to prevent cavities (mostly kids).,Protective coating put on a back tooth
+Preventive,D1510,"Space Maintainer (Fixed, Unilateral)",$400 - $600,Device to hold space for a permanent tooth after early loss.,Spacer to hold room for a growing tooth
+Restorative,D2140,Amalgam - 1 Surface,$140 - $200,Silver filling (one side of tooth).,Small silver filling
+Restorative,D2150,Amalgam - 2 Surfaces,$180 - $250,Silver filling (two sides).,Medium silver filling
+Restorative,D2160,Amalgam - 3 Surfaces,$220 - $300,Silver filling (three sides).,Large silver filling
+Restorative,D2330,Resin-Based Composite - 1 Surf (Ant),$180 - $250,White/tooth-colored filling on a front tooth.,Small white filling on a front tooth
+Restorative,D2331,Resin-Based Composite - 2 Surf (Ant),$230 - $310,White filling on a front tooth (two sides).,Medium white filling on a front tooth
+Restorative,D2391,Resin-Based Composite - 1 Surf (Post),$200 - $275,White filling on a back tooth (very common).,Small white filling on a back tooth
+Restorative,D2392,Resin-Based Composite - 2 Surf (Post),$275 - $350,White filling on a back tooth (two sides).,Medium white filling on a back tooth
+Restorative,D2393,Resin-Based Composite - 3 Surf (Post),$325 - $425,White filling on a back tooth (three sides).,Large white filling on a back tooth
+Restorative,D2740,Crown - Porcelain/Ceramic,"$1,350 - $1,800",All-ceramic crown (most common for esthetics).,Tooth-colored cap or crown
+Restorative,D2750,Crown - Porcelain Fused to High Noble,"$1,300 - $1,750",Porcelain fused to metal (PFM) crown.,Crown made of metal with a porcelain coating
+Restorative,D2790,Crown - Full Cast High Noble Metal,"$1,400 - $1,900",Full gold crown (price fluctuates with gold market).,Gold crown
+Restorative,D2950,"Core Buildup, Including Pins",$350 - $500,Rebuilding the tooth structure to support a crown.,Building up a broken tooth so it can hold a crown
+Restorative,D2962,Labial Veneer (Porcelain),"$1,400 - $2,000",Cosmetic veneer for front teeth.,Porcelain veneer on a front tooth for looks
+Endodontics,D3310,Endodontic Therapy - Anterior,$900 - $1,200,Root canal on a front tooth (1 canal).,Root canal on a front tooth
+Endodontics,D3320,Endodontic Therapy - Premolar,"$1,000 - $1,400",Root canal on a bicuspid/premolar (usually 2 canals).,Root canal on a middle tooth
+Endodontics,D3330,Endodontic Therapy - Molar,"$1,300 - $1,700",Root canal on a back tooth (3-4 canals).,Root canal on a large back tooth
+Endodontics,D3346,Retreatment of Root Canal - Anterior,"$1,200 - $1,600",Re-doing a failing root canal.,Redoing an old root canal that failed
+Periodontics,D4341,Scaling & Root Planing (4+ teeth),$275 - $400,"""Deep cleaning"" per quadrant (one quarter of mouth).",Deep cleaning on a quarter of the mouth
+Periodontics,D4342,Scaling & Root Planing (1-3 teeth),$180 - $280,"""Deep cleaning"" limited to a few teeth in a quadrant.",Deep cleaning on just a few specific teeth
+Periodontics,D4355,Full Mouth Debridement,$200 - $300,Preliminary heavy cleaning to allow for an exam.,Heavy cleaning to remove buildup so the dentist can see
+Periodontics,D4910,Periodontal Maintenance,$150 - $210,Cleaning for patients with a history of gum disease (replacing D1110).,Maintenance cleaning for history of gum disease
+Periodontics,D4381,Localized Delivery of Antimicrobial,$50 - $90,"Antibiotic placement (e.g., Arestin) in gum pockets (per tooth).",Antibiotic powder placed in the gums
+Prosthodontics,D5110,Complete Denture - Maxillary,"$1,800 - $2,500",Full upper denture.,Full upper denture (false teeth)
+Prosthodontics,D5120,Complete Denture - Mandibular,"$1,800 - $2,500",Full lower denture.,Full lower denture (false teeth)
+Prosthodontics,D5213,Maxillary Partial Denture (Cast Metal),"$1,900 - $2,600",Upper partial with metal framework.,Upper partial denture with metal clips
+Prosthodontics,D5214,Mandibular Partial Denture (Cast Metal),"$1,900 - $2,600",Lower partial with metal framework.,Lower partial denture with metal clips
+Prosthodontics,D5730,Reline Complete Maxillary Denture,$450 - $650,Resurfacing the inside of a denture (chairside).,Reshaping the inside of a denture to fit better
+Prosthodontics,D5820,Interim Partial Denture (Flipper),$500 - $800,Temporary partial while healing.,Temporary partial or ""flipper"" tooth
+Oral Surgery,D7140,Extraction - Erupted Tooth,$200 - $300,Simple extraction (pulling a tooth).,Simple tooth pulling
+Oral Surgery,D7210,Surgical Extraction,$350 - $550,Extraction requiring cutting gum/bone.,Surgical removal of a tooth
+Oral Surgery,D7220,Removal of Impacted Tooth (Soft Tissue),$400 - $650,Wisdom tooth stuck under gum.,Removing a wisdom tooth stuck under the gum
+Oral Surgery,D7230,Removal of Impacted Tooth (Partial Bony),$550 - $800,Wisdom tooth partially stuck in bone.,Removing a wisdom tooth partially stuck in the bone
+Oral Surgery,D7240,Removal of Impacted Tooth (Full Bony),$650 - $950,Wisdom tooth fully encased in bone.,Removing a wisdom tooth fully buried in the bone
+Oral Surgery,D7510,Incision and Drainage of Abscess,$250 - $450,Draining an infection swelling.,Draining a dental abscess or infection
+Implants,D6010,Surgical Placement of Implant Body,"$2,000 - $2,800",Placing the titanium screw into the bone (does not include crown).,Surgery to place a dental implant screw
+Implants,D6056,Prefabricated Abutment,$600 - $900,The connector piece between implant and crown.,Connector piece for an implant
+Implants,D6058,Abutment Supported Porcelain Crown,"$1,400 - $1,900",The crown that sits on top of the implant.,Crown put on top of an implant
+Implants,D6100,Implant Removal,$400 - $700,Removing a failed implant.,Taking out an old implant
+Adjunctive,D9110,Palliative Treatment,$100 - $180,Treatment of dental pain (minor procedure).,Quick fix for dental pain
+Adjunctive,D9222,Deep Sedation/General Anesthesia,$350 - $500,First 15 minutes of sedation.,Going to sleep for the procedure (first 15 min)
+Adjunctive,D9223,Deep Sedation/General Anesthesia,$150 - $300,Each additional 15 minutes.,Extra time asleep during surgery
+Adjunctive,D9230,Nitrous Oxide,$60 - $100,"""Laughing gas"".",Laughing gas
+Adjunctive,D9944,Occlusal Guard (Hard Appliance),$500 - $850,Night guard for grinding/bruxism.,Custom night guard for grinding

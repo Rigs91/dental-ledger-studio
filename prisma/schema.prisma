@@ -1,0 +1,379 @@
+// Prisma schema for the dental ledger MVP
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  RECEPTIONIST
+  BILLING_MANAGER
+  DENTIST
+  PATIENT
+}
+
+enum InsurancePriority {
+  PRIMARY
+  SECONDARY
+  TERTIARY
+}
+
+enum ClaimStatus {
+  DRAFT
+  SUBMITTED
+  PAID
+  DENIED
+  CLOSED
+}
+
+enum ClaimPacketType {
+  PAYER
+  PATIENT
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  CHECKED_IN
+  COMPLETED
+  CANCELLED
+}
+
+enum VisitStatus {
+  COMPLETED
+  CANCELLED
+}
+
+enum LedgerEventType {
+  PROCEDURE_PERFORMED
+  CHARGE_CREATED
+  CLAIM_SUBMITTED
+  INSURANCE_PAYMENT
+  INSURANCE_ADJUSTMENT
+  PATIENT_PAYMENT
+  CREDIT_CREATED
+  CREDIT_APPLIED
+  BALANCE_CORRECTION
+  NOTE
+}
+
+enum FlagSource {
+  SYSTEM
+  MANUAL
+}
+
+enum FlagStatus {
+  OPEN
+  RESOLVED
+  VERIFIED
+}
+
+enum ExplanationStatus {
+  DRAFT
+  FINAL
+}
+
+enum ProcedureReviewStatus {
+  PENDING
+  APPROVED
+  UPDATED
+}
+
+enum PatientActivityCategory {
+  PATIENT
+  PROCEDURE
+  INSURANCE
+  FINANCIAL
+  ADMIN
+}
+
+enum PatientActivityType {
+  INSURANCE_POLICY_ADDED
+  INSURANCE_POLICY_UPDATED
+  INSURANCE_POLICY_ENDED
+  INSURANCE_OVERRIDE_CREATED
+  INSURANCE_SELECTION_CONFIRMED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  role      UserRole
+  createdAt DateTime @default(now())
+}
+
+model Patient {
+  id         String            @id @default(cuid())
+  firstName  String
+  middleName String?
+  lastName   String
+  dob        DateTime
+  phone      String?
+  email      String?
+  addressLine1 String?
+  addressLine2 String?
+  city       String?
+  state      String?
+  postalCode String?
+  ssn        String?
+  createdAt  DateTime          @default(now())
+  insurances InsurancePolicy[]
+  insuranceOverrides InsuranceOverride[]
+  visits     Visit[]
+  claims     Claim[]
+  appointments Appointment[]
+  ledger     LedgerEvent[]
+  flags      Flag[]
+  activityEvents PatientActivityEvent[]
+}
+
+model InsurancePolicy {
+  id             String             @id @default(cuid())
+  patientId      String
+  payerName      String
+  memberId       String
+  groupId        String?
+  subscriberName String?
+  employerName   String?
+  priority       InsurancePriority
+  effectiveStart DateTime
+  effectiveEnd   DateTime?
+  lastVerifiedAt DateTime?
+  copayAmount    Decimal?
+  createdAt      DateTime           @default(now())
+
+  patient Patient @relation(fields: [patientId], references: [id])
+  claims  Claim[]
+  submissions ClaimSubmission[]
+  overrides InsuranceOverride[]
+
+  @@index([patientId, effectiveStart, effectiveEnd, priority])
+}
+
+model InsuranceOverride {
+  id                String   @id @default(cuid())
+  patientId         String
+  insurancePolicyId String
+  effectiveStart    DateTime
+  effectiveEnd      DateTime?
+  reason            String
+  createdAt         DateTime @default(now())
+
+  patient Patient @relation(fields: [patientId], references: [id])
+  policy  InsurancePolicy @relation(fields: [insurancePolicyId], references: [id])
+
+  @@index([patientId, effectiveStart, effectiveEnd])
+}
+
+model Visit {
+  id            String            @id @default(cuid())
+  patientId     String
+  dateOfService DateTime
+  status        VisitStatus       @default(COMPLETED)
+  plannedProcedures Json?
+  appointmentId String?           @unique
+  createdAt     DateTime          @default(now())
+
+  patient    Patient            @relation(fields: [patientId], references: [id])
+  procedures ProcedureRecord[]
+  claims     Claim[]
+  ledger     LedgerEvent[]
+  appointment Appointment?       @relation(fields: [appointmentId], references: [id])
+
+  @@index([patientId, dateOfService])
+}
+
+model Appointment {
+  id               String            @id @default(cuid())
+  patientId        String
+  scheduledAt      DateTime
+  plannedProcedures Json
+  status           AppointmentStatus @default(SCHEDULED)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  patient Patient @relation(fields: [patientId], references: [id])
+  visit   Visit?
+
+  @@index([status, scheduledAt])
+}
+
+model ProcedureRecord {
+  id             String   @id @default(cuid())
+  visitId        String
+  freeText       String
+  normalizedText String
+  confidence     Float
+  rationale      String
+  candidateCodes Json
+  selectedCode   String?
+  selectedLabel  String?
+  reviewStatus   ProcedureReviewStatus @default(PENDING)
+  reviewedAt     DateTime?
+  reviewNote     String?
+  createdAt      DateTime @default(now())
+
+  visit Visit @relation(fields: [visitId], references: [id])
+}
+
+model Claim {
+  id               String          @id @default(cuid())
+  patientId        String
+  visitId          String
+  insurancePolicyId String?
+  insuranceSnapshot Json?
+  insuranceReason  String
+  status           ClaimStatus
+  createdAt        DateTime        @default(now())
+
+  patient        Patient        @relation(fields: [patientId], references: [id])
+  visit          Visit          @relation(fields: [visitId], references: [id])
+  insurancePolicy InsurancePolicy? @relation(fields: [insurancePolicyId], references: [id])
+  packets        ClaimPacket[]
+  submissions    ClaimSubmission[]
+  decisions      ClaimDecision[]
+  ledger         LedgerEvent[]
+  flags          Flag[]
+  explanations   ExplanationDraft[]
+
+  @@index([status, createdAt])
+  @@index([patientId, visitId])
+}
+
+model ClaimPacket {
+  id        String          @id @default(cuid())
+  claimId   String
+  type      ClaimPacketType
+  payload   Json
+  html      String
+  createdAt DateTime        @default(now())
+
+  claim Claim @relation(fields: [claimId], references: [id])
+  submissions ClaimSubmission[]
+}
+
+model ClaimSubmission {
+  id                String   @id @default(cuid())
+  claimId           String
+  insurancePolicyId String?
+  insuranceSnapshot Json?
+  reason            String
+  createdAt         DateTime @default(now())
+  packetId          String?
+
+  claim           Claim           @relation(fields: [claimId], references: [id])
+  insurancePolicy InsurancePolicy? @relation(fields: [insurancePolicyId], references: [id])
+  packet          ClaimPacket?     @relation(fields: [packetId], references: [id])
+
+  @@index([claimId, createdAt])
+}
+
+model ClaimDecision {
+  id         String      @id @default(cuid())
+  claimId    String
+  status     ClaimStatus
+  reasonCode String?
+  reasonText String
+  occurredAt DateTime
+  createdAt  DateTime    @default(now())
+
+  claim Claim @relation(fields: [claimId], references: [id])
+
+  @@index([claimId, occurredAt])
+}
+
+model LedgerEvent {
+  id         String          @id @default(cuid())
+  patientId  String
+  visitId    String?
+  claimId    String?
+  type       LedgerEventType
+  amount     Decimal
+  occurredAt DateTime
+  metadata   Json
+  createdAt  DateTime        @default(now())
+
+  patient Patient @relation(fields: [patientId], references: [id])
+  visit   Visit?  @relation(fields: [visitId], references: [id])
+  claim   Claim?  @relation(fields: [claimId], references: [id])
+
+  @@index([claimId, occurredAt])
+  @@index([patientId, occurredAt])
+}
+
+model FeeSchedule {
+  id             String   @id @default(cuid())
+  code           String   @unique
+  label          String
+  amount         Decimal
+  effectiveStart DateTime
+  effectiveEnd   DateTime?
+}
+
+model ProcedureCatalog {
+  id                 String   @id @default(cuid())
+  code               String   @unique
+  category           String
+  description        String
+  notes              String?
+  patientDescription String?
+  estimatedFeeMin    Decimal
+  estimatedFeeMax    Decimal
+  estimatedCopayAvg  Decimal?
+  copayRate          Float?
+  copayBasis         String?
+  createdAt          DateTime @default(now())
+}
+
+model Flag {
+  id             String     @id @default(cuid())
+  patientId      String
+  claimId        String?
+  source         FlagSource
+  status         FlagStatus
+  likelyIssue    String
+  confidence     Float
+  recommendedAction String
+  fingerprint    String
+  createdAt      DateTime   @default(now())
+  lastDetectedAt DateTime
+  resolvedAt     DateTime?
+  resolutionNote String?
+
+  patient Patient @relation(fields: [patientId], references: [id])
+  claim   Claim?  @relation(fields: [claimId], references: [id])
+
+  @@index([status, lastDetectedAt])
+}
+
+model ExplanationDraft {
+  id           String            @id @default(cuid())
+  claimId      String
+  originalText String
+  editedText   String?
+  status       ExplanationStatus
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  claim Claim @relation(fields: [claimId], references: [id])
+}
+
+model PatientActivityEvent {
+  id                 String                  @id @default(cuid())
+  patientId          String
+  category           PatientActivityCategory
+  type               PatientActivityType
+  title              String
+  detail             String?
+  occurredAt         DateTime
+  metadata           Json?
+  insurancePolicyId  String?
+  insuranceOverrideId String?
+  claimId            String?
+  createdAt          DateTime                @default(now())
+
+  patient Patient @relation(fields: [patientId], references: [id])
+}
